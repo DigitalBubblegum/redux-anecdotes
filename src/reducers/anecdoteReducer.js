@@ -44,7 +44,7 @@ const reducer = (state = initialState, action) => {
       return state;
   }
 }
-
+//exercise 6.6
 export const voteForAnec = (id) => {
   return {
     type: 'VOTE',
