@@ -1,3 +1,4 @@
+//completed exercise 6.11
 import { createSlice } from '@reduxjs/toolkit'
 const anecdotesAtStart = {
   anecdotes: [
