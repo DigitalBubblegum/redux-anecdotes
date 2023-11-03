@@ -9,7 +9,6 @@ const anecdotesAtStart = {
   'Premature optimization is the root of all evil.',
   'Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.'
 ],
-  filter: 'INIT'
 }
 
 const getId = () => (100000 * Math.random()).toFixed(0)
@@ -38,7 +37,7 @@ const anecdoteSlice = createSlice({
       votes: 0})
     },
     voteForAnec(state,action) {
-      console.log('state now: ', state)
+      console.log('state now: ', JSON.parse(JSON.stringify(state)))
       console.log('action', action)
       console.log('anecdote id is, ', action.payload)
       const id = action.payload
