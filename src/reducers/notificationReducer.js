@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-const initialState = 'this is init notification'
+const initialState = ''
 const notificationSlice = createSlice({
     name: 'notification',
     initialState,
@@ -8,8 +8,13 @@ const notificationSlice = createSlice({
             console.log('state now: ', state)
             console.log('action', action.payload)
             return action.payload
+        },
+        resetNoti(state){
+            console.log('resetting notification')
+            console.log(state)
+            return null
         }
     }
 })
-export const { changeNoti } = notificationSlice.actions
+export const { changeNoti,resetNoti } = notificationSlice.actions
 export default notificationSlice.reducer
