@@ -1,5 +1,6 @@
 //completed exercise 6.11
 import { createSlice } from '@reduxjs/toolkit'
+import anecdoteService from '../services/anecdotes'
 // const anecdotesAtStart = {
 //   anecdotes: [
 //   'If it hurts, do it more often',
@@ -96,4 +97,11 @@ export const addNewAnec = (content) => {
   }
 }*/
 export const { addNewAnec,voteForAnec,appendAnecdote,setAnecdotes } = anecdoteSlice.actions
+export const initializeAnecdotes = () => {
+  return async dispatch => {
+    console.log('exercise 6.16')
+    const anecdotes = await anecdoteService.getAll()
+    dispatch(setAnecdotes(anecdotes))
+  }
+}
 export default anecdoteSlice.reducer
