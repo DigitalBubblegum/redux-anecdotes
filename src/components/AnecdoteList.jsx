@@ -1,6 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { voteForAnec } from '../reducers/anecdoteReducer'
 import { changeNoti,resetNoti } from '../reducers/notificationReducer'
+import anecdoteService from '../services/anecdotes'
 const AnecdoteList = () => {
     const anecdotes = useSelector(state => {
       if(state.filter === 'ALL'){
@@ -13,10 +14,15 @@ const AnecdoteList = () => {
       }
     })
     const dispatch = useDispatch()
-    const vote = (id,content) => {
-    console.log('vote', id)
-    dispatch(voteForAnec(id))
-    dispatch(changeNoti(`You Voted for '${content}'`))
+    const vote = async(anecdote) => {
+    console.log('anecdte', anecdote.id)
+      const changedAnecdoteVote = {
+        ...anecdote,
+        votes: anecdote.votes + 1,
+      }
+    const newid = await anecdoteService.updateExisting(anecdote.id,changedAnecdoteVote)
+    dispatch(voteForAnec(newid))
+    dispatch(changeNoti(`You Voted for '${anecdote.content}'`))
         setTimeout(()=>{
           dispatch(resetNoti())
         },5000)
@@ -28,9 +34,10 @@ const AnecdoteList = () => {
           <div>
             {anecdote.content}
           </div>
+          {console.log(`id = ${anecdote.id} content = ${(anecdote.content)}, votes = ${anecdote.votes}`)}
           <div>
             has {anecdote.votes}
-            <button onClick={() => vote(anecdote.id,anecdote.content)}>vote</button>
+            <button onClick={() => vote(anecdote)}>vote</button>
           </div>
         </div>
       )}

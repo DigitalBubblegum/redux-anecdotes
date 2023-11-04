@@ -11,7 +11,7 @@ import { createSlice } from '@reduxjs/toolkit'
 // ],
 // }
 
-const getId = () => (100000 * Math.random()).toFixed(0)
+// const getId = () => (100000 * Math.random()).toFixed(0)
 
 // const asObject = (anecdote) => {
 //   return {
@@ -32,23 +32,16 @@ const anecdoteSlice = createSlice({
       console.log('state now: ', state)
       console.log('action', action)
       const content = action.payload
-      console.log('content',content)
-      state.push({content,
-      id: getId(),
-      votes: 0})
+      console.log('content is issisisi',JSON.parse(JSON.stringify(content)))
+      state.push(content)
     },
     voteForAnec(state,action) {
-      console.log('state now: ', JSON.parse(JSON.stringify(state)))
+      console.log('state now in vote: ', state)
       console.log('action', action)
-      console.log('anecdote id is, ', action.payload)
-      const id = action.payload
-      const anecdoteToChange = state.find(n=> n.id === id)
-      console.log(anecdoteToChange);
-      const changedAnecdoteVote = {
-        ...anecdoteToChange,
-        votes: anecdoteToChange.votes + 1,
-      }
-      return state.map(n=>n.id!==id?n:changedAnecdoteVote)
+      console.log('anecdote id is, ', action.payload.id)
+      return state.map((n) =>
+        n.id !== action.payload.id ? n : action.payload
+      );
     },
     appendAnecdote(state, action) {
       state.push(action.payload)
