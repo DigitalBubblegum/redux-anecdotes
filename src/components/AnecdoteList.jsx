@@ -1,7 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux'
-import { voteForAnec } from '../reducers/anecdoteReducer'
+import {  voteForAnecdote } from '../reducers/anecdoteReducer'
 import { changeNoti,resetNoti } from '../reducers/notificationReducer'
-import anecdoteService from '../services/anecdotes'
 const AnecdoteList = () => {
     const anecdotes = useSelector(state => {
       if(state.filter === 'ALL'){
@@ -20,8 +19,7 @@ const AnecdoteList = () => {
         ...anecdote,
         votes: anecdote.votes + 1,
       }
-    const newid = await anecdoteService.updateExisting(anecdote.id,changedAnecdoteVote)
-    dispatch(voteForAnec(newid))
+    dispatch(voteForAnecdote(anecdote.id,changedAnecdoteVote))
     dispatch(changeNoti(`You Voted for '${anecdote.content}'`))
         setTimeout(()=>{
           dispatch(resetNoti())
@@ -34,7 +32,7 @@ const AnecdoteList = () => {
           <div>
             {anecdote.content}
           </div>
-          {console.log(`id = ${anecdote.id} content = ${(anecdote.content)}, votes = ${anecdote.votes}`)}
+          {/* {console.log(`id = ${anecdote.id} content = ${(anecdote.content)}, votes = ${anecdote.votes}`)} */}
           <div>
             has {anecdote.votes}
             <button onClick={() => vote(anecdote)}>vote</button>
